@@ -2,35 +2,45 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
-public class MinhaPlaylist{
-    ArrayList<String> nameMusicas = new ArrayList <String>();
+public class MinhaPlaylist {
+
+    ArrayList<String> nomeMusicas = new ArrayList <String>();
+
     public static void main(String[] args) {
-        new MinhaPlaylist().leMusicas();
+        new MinhaPlaylist().go();
+        
     }
-    public void adicionaMusica(String musica){
+
+    public void adicionaMusica(String musica) {
         String[] lista = musica.split("/");
-            nameMusicas.add(lista[0]); //split: quando encontra a "/", ele passa para a linha debaixo
+        nomeMusicas.add(lista[0]);
     }
 
     public void go() {
         leMusicas();
-        System.out.println(nameMusicas);
+        System.out.println("Não ordenado\n"+nomeMusicas);
+        
+        Collections.sort(nomeMusicas);
+        System.out.println("Ordenado\n"+nomeMusicas);
     }
 
-    public void leMusicas(){
+    public void leMusicas() {
         try{
 
-            File arquivo = new File("Playlist_do_Leo.txt");
-            BufferedReader reader = new BufferedReader(new FileReader(arquivo)); //lê e armazena; FileReader = lê um arquivo
+            File arquivo = new File("lista_musicas.txt");
+            BufferedReader reader = new BufferedReader(new FileReader("lista_musicas.txt"));
             String linha = null;
-            
-            while((linha = reader.readLine())!=null){
+            while((linha = reader.readLine()) != null) {
                 adicionaMusica(linha);
             }
+            reader.close();
 
-        } catch(Exception ex){ //gera erro no debug
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
-    } 
+    }
+
 }
